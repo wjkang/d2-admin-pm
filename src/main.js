@@ -48,6 +48,7 @@ new Vue({
   },
   watch: {
     '$route.matched' (val) {
+      console.log(val)
       const _side = menuAside.filter(menu => menu.path === val[0].path)
       this.$store.commit('d2admin/menu/asideSet', _side.length > 0 ? _side[0].children : [])
     }
