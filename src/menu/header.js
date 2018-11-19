@@ -16,5 +16,18 @@ export default [
     children: [
       { path: '/demo/page4', title: '页面 4' }
     ]
+  },
+  {
+    title: '左侧独立菜单',
+    icon: 'folder-o',
+    children: [
+      {
+        title: '表格',
+        icon: 'table',
+        children: [
+          { path: '/demo/page4', title: '页面 4' }
+        ]
+      }
+    ]
   }
 ]
