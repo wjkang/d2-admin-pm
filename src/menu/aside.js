@@ -9,5 +9,12 @@ export default [
       { path: '/demo/page2', title: '页面 2' },
       { path: '/demo/page3', title: '页面 3' }
     ]
+  },
+  {
+    title: '演示页面1',
+    icon: 'folder-o',
+    children: [
+      { path: '/demo/page4', title: '页面 4' }
+    ]
   }
 ]
