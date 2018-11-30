@@ -67,7 +67,7 @@ new Vue({
   },
   watch: {
     '$route.matched'(val) {
-      const _side = allMenuHeader.filter(menu => menu.path === val[0].path)
+      const _side = allMenuAside.filter(menu => menu.path === val[0].path)
       this.$store.commit('d2admin/menu/asideSet', _side.length > 0 ? _side[0].children : [])
     }
   }
