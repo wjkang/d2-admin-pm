@@ -45,7 +45,7 @@ new Vue({
     allMenuAside = [...allMenuAside, ...permissionMenu]
     allMenuHeader = [...allMenuHeader, ...permissionMenu]
     //动态添加路由
-    this.$router.addRoutes(permissionRouter)
+    this.$router.addRoutes(permissionRouter);
     // 处理路由 得到每一级的路由设置
     this.$store.commit('d2admin/page/init', [...frameInRoutes, ...permissionRouter])
     // 设置顶栏菜单

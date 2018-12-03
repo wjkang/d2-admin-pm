@@ -31,12 +31,11 @@ export const permissionRouter = [
         children: [
             {
                 name: "菜单管理",
-                title: "菜单管理",
                 path: "/system/menu",
                 icon: "folder-o",
                 meta: {
                     requiresAuth: true,
-                    title: '系统设置'
+                    title: '菜单管理'
                 },
                 component: "menu"
             }
