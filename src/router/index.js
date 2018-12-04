@@ -49,7 +49,6 @@ let fetchPermissionInfo = async () => {
   allMenuAside = [...allMenuAside, ...permissionMenu]
   allMenuHeader = [...allMenuHeader, ...permissionMenu]
   //动态添加路由
-  console.log(permissionRouter)
   router.addRoutes(permissionRouter);
   // 处理路由 得到每一级的路由设置
   store.commit('d2admin/page/init', [...frameInRoutes, ...permissionRouter])
