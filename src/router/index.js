@@ -60,6 +60,8 @@ let fetchPermissionInfo = async () => {
   store.commit('d2admin/search/init', allMenuHeader)
   await Promise.resolve()
 }
+//免校验token白名单
+let whiteList = ['login', '404']
 
 /**
  * 路由拦截
@@ -70,26 +72,30 @@ router.beforeEach(async (to, from, next) => {
   NProgress.start()
   // 关闭搜索面板
   store.commit('d2admin/search/set', false)
-  // 这里暂时将cookie里是否存有token作为验证是否登录的条件
-  // 请根据自身业务需要修改
-  const token = util.cookies.get('token')
-  if (token && token !== 'undefined') {
-    //拉取权限信息
-    if (!isFetchPermissionInfo) {
-      await fetchPermissionInfo();
-      isFetchPermissionInfo = true;
-      next(to.path, true)
+  if (whiteList.indexOf(to.name) === -1) {
+    // 这里暂时将cookie里是否存有token作为验证是否登录的条件
+    // 请根据自身业务需要修改
+    const token = util.cookies.get('token')
+    if (token && token !== 'undefined') {
+      //拉取权限信息
+      if (!isFetchPermissionInfo) {
+        await fetchPermissionInfo();
+        isFetchPermissionInfo = true;
+        next(to.path, true)
+      } else {
+        next()
+      }
     } else {
-      next()
+      // 将当前预计打开的页面完整地址临时存储 登录后继续跳转
+      // 这个 cookie(redirect) 会在登录后自动删除
+      util.cookies.set('redirect', to.fullPath)
+      // 没有登录的时候跳转到登录界面
+      next({
+        name: 'login'
+      })
     }
   } else {
-    // 将当前预计打开的页面完整地址临时存储 登录后继续跳转
-    // 这个 cookie(redirect) 会在登录后自动删除
-    util.cookies.set('redirect', to.fullPath)
-    // 没有登录的时候跳转到登录界面
-    next({
-      name: 'login'
-    })
+    next()
   }
 })
 
