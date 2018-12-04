@@ -12,6 +12,11 @@ export const permissionMenu = [
                         title: "菜单管理",
                         path: "/system/menu",
                         icon: "folder-o"
+                    },
+                    {
+                        title: "路由管理",
+                        path: "/system/route",
+                        icon: "folder-o"
                     }
                 ]
             }
@@ -38,6 +43,16 @@ export const permissionRouter = [
                     title: '菜单管理'
                 },
                 component: "menu"
+            },
+            {
+                name: "路由管理",
+                path: "/system/route",
+                icon: "folder-o",
+                meta: {
+                    requiresAuth: true,
+                    title: '路由管理'
+                },
+                component: "route"
             }
         ]
     }

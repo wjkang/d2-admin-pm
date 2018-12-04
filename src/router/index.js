@@ -49,6 +49,7 @@ let fetchPermissionInfo = async () => {
   allMenuAside = [...allMenuAside, ...permissionMenu]
   allMenuHeader = [...allMenuHeader, ...permissionMenu]
   //动态添加路由
+  console.log(permissionRouter)
   router.addRoutes(permissionRouter);
   // 处理路由 得到每一级的路由设置
   store.commit('d2admin/page/init', [...frameInRoutes, ...permissionRouter])
@@ -61,7 +62,7 @@ let fetchPermissionInfo = async () => {
   await Promise.resolve()
 }
 //免校验token白名单
-let whiteList = ['login', '404']
+let whiteList = ['/login']
 
 /**
  * 路由拦截
@@ -72,7 +73,7 @@ router.beforeEach(async (to, from, next) => {
   NProgress.start()
   // 关闭搜索面板
   store.commit('d2admin/search/set', false)
-  if (whiteList.indexOf(to.name) === -1) {
+  if (whiteList.indexOf(to.path) === -1) {
     // 这里暂时将cookie里是否存有token作为验证是否登录的条件
     // 请根据自身业务需要修改
     const token = util.cookies.get('token')
