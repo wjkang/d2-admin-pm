@@ -36,7 +36,7 @@ let allMenuAside = menuAside
 let allMenuHeader = menuHeader
 
 let fetchPermissionInfo = async () => {
-  处理动态添加的路由
+  //处理动态添加的路由
   const formatRoutes = function (routes) {
     routes.forEach(route => {
       route.component = routerMapComponents[route.component]

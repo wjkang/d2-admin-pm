@@ -1,12 +1,12 @@
 import layoutHeaderAside from '@/layout/header-aside'
 export default {
     "layoutHeaderAside": layoutHeaderAside,
-    "menu": () => import('@/pages/sys/menu'),
-    "route": () => import('@/pages/sys/route'),
-    "function": () => import('@/pages/permission/function'),
-    "role": () => import('@/pages/permission/role'),
-    "rolePermission": () => import('@/pages/permission/rolePermission'),
-    "roleUser": () => import('@/pages/permission/roleUser'),
-    "userRole": () => import('@/pages/permission/userRole'),
-    "user": () => import('@/pages/permission/user')
+    "menu": () => import(/* webpackChunkName: "menu" */'@/pages/sys/menu'),
+    "route": () => import(/* webpackChunkName: "route" */'@/pages/sys/route'),
+    "function": () => import(/* webpackChunkName: "function" */'@/pages/permission/function'),
+    "role": () => import(/* webpackChunkName: "role" */'@/pages/permission/role'),
+    "rolePermission": () => import(/* webpackChunkName: "rolepermission" */'@/pages/permission/rolePermission'),
+    "roleUser": () => import(/* webpackChunkName: "roleuser" */'@/pages/permission/roleUser'),
+    "userRole": () => import(/* webpackChunkName: "userrole" */'@/pages/permission/userRole'),
+    "user": () => import(/* webpackChunkName: "user" */'@/pages/permission/user')
 }
