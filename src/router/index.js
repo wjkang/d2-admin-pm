@@ -36,16 +36,28 @@ let allMenuAside = menuAside
 let allMenuHeader = menuHeader
 
 let fetchPermissionInfo = async () => {
-  //处理动态添加的路由
-  const replaceComponent = function (routes) {
+  处理动态添加的路由
+  const formatRoutes = function (routes) {
     routes.forEach(route => {
       route.component = routerMapComponents[route.component]
       if (route.children) {
-        replaceComponent(route.children)
+        formatRoutes(route.children)
       }
     })
   }
-  replaceComponent(permissionRouter)
+
+  // const formatRoutesByComponentPath = function (routes) {
+  //   routes.forEach(route => {
+  //     route.component = function (resolve) {
+  //       require([`../${route.componentPath}.vue`], resolve)
+  //     }
+  //     if (route.children) {
+  //       formatRoutesByComponentPath(route.children)
+  //     }
+  //   })
+  // }
+
+  formatRoutes(permissionRouter)
   allMenuAside = [...allMenuAside, ...permissionMenu]
   allMenuHeader = [...allMenuHeader, ...permissionMenu]
   //动态添加路由

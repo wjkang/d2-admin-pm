@@ -87,6 +87,7 @@ export const permissionRouter = [
         name: "系统设置",
         path: "/system",
         component: "layoutHeaderAside",
+        componentPath:'layout/header-aside/layout',
         meta: {
             requiresAuth: true,
             title: '系统设置'
@@ -100,7 +101,8 @@ export const permissionRouter = [
                     requiresAuth: true,
                     title: '菜单管理'
                 },
-                component: "menu"
+                component: "menu",
+                componentPath:'pages/sys/menu/index',
             },
             {
                 name: "路由管理",
@@ -110,7 +112,8 @@ export const permissionRouter = [
                     requiresAuth: true,
                     title: '路由管理'
                 },
-                component: "route"
+                component: "route",
+                componentPath:'pages/sys/menu/index',
             }
         ]
     },
@@ -118,6 +121,7 @@ export const permissionRouter = [
         name: "权限管理",
         path: "/system",
         component: "layoutHeaderAside",
+        componentPath:'layout/header-aside/layout',
         meta: {
             requiresAuth: true,
             title: '权限管理'
@@ -131,7 +135,8 @@ export const permissionRouter = [
                     requiresAuth: true,
                     title: '功能管理'
                 },
-                component: "function"
+                component: "function",
+                componentPath:'pages/sys/menu/index',
             },
             {
                 name: "角色管理",
@@ -141,7 +146,8 @@ export const permissionRouter = [
                     requiresAuth: true,
                     title: '角色管理'
                 },
-                component: "role"
+                component: "role",
+                componentPath:'pages/sys/menu/index',
             },
             {
                 name: "角色权限管理",
@@ -151,7 +157,8 @@ export const permissionRouter = [
                     requiresAuth: true,
                     title: '角色权限管理'
                 },
-                component: "rolePermission"
+                component: "rolePermission",
+                componentPath:'pages/sys/menu/index',
             },
             {
                 name: "角色用户权限管理",
@@ -161,7 +168,8 @@ export const permissionRouter = [
                     requiresAuth: true,
                     title: '角色用户管理'
                 },
-                component: "roleUser"
+                component: "roleUser",
+                componentPath:'pages/sys/menu/index',
             },
             {
                 name: "用户角色权限管理",
@@ -171,7 +179,8 @@ export const permissionRouter = [
                     requiresAuth: true,
                     title: '用户角色管理'
                 },
-                component: "userRole"
+                component: "userRole",
+                componentPath:'pages/sys/menu/index',
             }
         ]
     },
@@ -179,6 +188,7 @@ export const permissionRouter = [
         name: "用户管理",
         path: "/system",
         component: "layoutHeaderAside",
+        componentPath:'layout/header-aside/layout',
         meta: {
             requiresAuth: true,
             title: '用户管理'
@@ -192,7 +202,8 @@ export const permissionRouter = [
                     requiresAuth: true,
                     title: '用户管理'
                 },
-                component: "user"
+                component: "user",
+                componentPath:'pages/sys/menu/index',
             }
         ]
     }
