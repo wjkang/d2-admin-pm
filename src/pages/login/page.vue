@@ -67,7 +67,7 @@ export default {
         {
           name: '管理员',
           username: 'admin',
-          password: 'admin'
+          password: '123'
         },
         {
           name: '编辑',
@@ -83,7 +83,7 @@ export default {
       // 表单
       formLogin: {
         username: 'admin',
-        password: 'admin',
+        password: '123',
         code: 'v9am'
       },
       // 校验

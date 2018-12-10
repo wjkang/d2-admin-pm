@@ -22,7 +22,7 @@ loading.show = function (config) {
 
 loading.hide = function (config) {
     if (config && config.loading) {
-        if (config.loading.loading === "loading" && loadingInstance) {
+        if (config.loading.type === "loading" && loadingInstance) {
             loadingInstance.close();
             loadingInstance = null;
         }

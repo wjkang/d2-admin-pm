@@ -1,17 +1,11 @@
 import store from '@/store'
 import axios from 'axios'
+import router from '@/router/index'
 import { Message } from 'element-ui'
 import util from '@/libs/util'
 import loading from '@/libs/loading'
 import message from '@/libs/message'
 import permission from '@/libs/permission'
-
-// 创建一个错误
-function errorCreat(msg) {
-  const err = new Error(msg)
-  errorLog(err)
-  throw err
-}
 
 // 记录和显示错误
 function errorLog(err) {
@@ -43,9 +37,10 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
   config => {
-    if (!permission.check(config)) {
+    if (!permission.access(config)) {
       throw "403"
     }
+    loading.show(config)
     // 在请求发送之前做一些处理
     if (!(/^https:\/\/|http:\/\//.test(config.url))) {
       const token = util.cookies.get('token')
@@ -66,49 +61,40 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   response => {
-    // dataAxios 是 axios 返回数据中的 data
-    const dataAxios = response.data
-    // 这个状态码是和后端约定的
-    const { code } = dataAxios
-    // 根据 code 进行判断
-    if (code === undefined) {
-      // 如果没有 code 代表这不是项目后端开发的接口 比如可能是 D2Admin 请求最新版本
-      return dataAxios
+    loading.hide(response.config)
+    const res = response.data;
+    if (res.statusCode !== 200) {
+      errorLog(new Error(`${res.msg}: ${response.config.url}`))
+      return Promise.reject(res.msg);
     } else {
-      // 有 code 代表这是一个后端接口 可以进行进一步的判断
-      switch (code) {
-        case 0:
-          // [ 示例 ] code === 0 代表没有错误
-          return dataAxios.data
-        case 'xxx':
-          // [ 示例 ] 其它和后台约定的 code
-          errorCreat(`[ code: xxx ] ${dataAxios.msg}: ${response.config.url}`)
-          break
-        default:
-          // 不是正确的 code
-          errorCreat(`${dataAxios.msg}: ${response.config.url}`)
-          break
-      }
+      return res.data;
     }
   },
   error => {
-    if (error && error.response) {
-      switch (error.response.status) {
-        case 400: error.message = '请求错误'; break
-        case 401: error.message = '未授权，请登录'; break
-        case 403: error.message = '拒绝访问'; break
-        case 404: error.message = `请求地址出错: ${error.response.config.url}`; break
-        case 408: error.message = '请求超时'; break
-        case 500: error.message = '服务器内部错误'; break
-        case 501: error.message = '服务未实现'; break
-        case 502: error.message = '网关错误'; break
-        case 503: error.message = '服务不可用'; break
-        case 504: error.message = '网关超时'; break
-        case 505: error.message = 'HTTP版本不受支持'; break
-        default: break
+    loading.hide(error.config)
+    if (error.response && error.response.status === 401) {
+      util.cookies.get('remove')
+      if (error.config.url.indexOf("logout") === -1) {
+        Message({
+          message: '登陆信息已过期,请重新登陆!',
+          type: 'error',
+          duration: 3 * 1000
+        })
       }
+      setTimeout(() => {
+        router.push({
+          name: "login"
+        });
+      }, 1000)
+    } else if (error.response && error.response.status === 500) {
+      errorLog(new Error(`系统错误!: ${error.config.url}`))
+    } else if (error.message && error.message.indexOf("timeout") > -1) {
+      errorLog(new Error(`网络超时!: ${error.config.url}`))
+    } else if (error === "403") {
+      errorLog(new Error(`没有请求权限!: ${error.config.url}`))
+    } else {
+      errorLog(new Error(`网络错误!: ${error.config.url}`))
     }
-    errorLog(error)
     return Promise.reject(error)
   }
 )
