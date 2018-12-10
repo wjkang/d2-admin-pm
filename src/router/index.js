@@ -17,7 +17,7 @@ import menuHeader from '@/menu/header'
 import menuAside from '@/menu/aside'
 import { frameInRoutes } from '@/router/routes'
 //路由与组件映射关系
-//import routerMapComponents from '@/routerMapComponents'
+import routerMapComponents from '@/routerMapComponents'
 //模拟动态菜单与路由
 import { permissionMenu, permissionRouter } from '@/mock/permissionMenuAndRouter'
 
@@ -37,25 +37,25 @@ let allMenuHeader = menuHeader
 
 let fetchPermissionInfo = async () => {
   //处理动态添加的路由
-  // const formatRoutes = function (routes) {
-  //   routes.forEach(route => {
-  //     route.component = routerMapComponents[route.component]
-  //     if (route.children) {
-  //       formatRoutes(route.children)
-  //     }
-  //   })
-  // }
-
-  const formatRoutesByComponentPath = function (routes) {
+  const formatRoutes = function (routes) {
     routes.forEach(route => {
-      route.component = function (resolve) {
-        require([`../${route.componentPath}.vue`], resolve)
-      }
+      route.component = routerMapComponents[route.component]
       if (route.children) {
-        formatRoutesByComponentPath(route.children)
+        formatRoutes(route.children)
       }
     })
   }
+
+  // const formatRoutesByComponentPath = function (routes) {
+  //   routes.forEach(route => {
+  //     route.component = function (resolve) {
+  //       require([`../${route.componentPath}.vue`], resolve)
+  //     }
+  //     if (route.children) {
+  //       formatRoutesByComponentPath(route.children)
+  //     }
+  //   })
+  // }
 
   // const formatRoutesByComponentPath = function (routes) {
   //   routes.forEach(route => {
@@ -66,7 +66,7 @@ let fetchPermissionInfo = async () => {
   //   })
   // }
 
-  formatRoutesByComponentPath(permissionRouter)
+  formatRoutes(permissionRouter)
   allMenuAside = [...allMenuAside, ...permissionMenu]
   allMenuHeader = [...allMenuHeader, ...permissionMenu]
   //动态添加路由

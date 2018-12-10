@@ -1,5 +1,3 @@
-[![Build Status](https://www.travis-ci.org/d2-projects/d2-admin-start-kit.svg?branch=master)](https://www.travis-ci.org/d2-projects/d2-admin-start-kit)
+`main.js`中`created`钩子内容转到`router/index.js`内，并添加相关逻辑
 
-[D2Admin](https://github.com/d2-projects/d2-admin) 简化版起始模板，删除所有完整版中的示例代码，保留所有核心功能。
-
-[码云镜像](https://gitee.com/fairyever/d2-admin-start-kit)
+vuex store中添加**fullAside**，完整路径`this.$store.state.d2admin.menu.fullAside`

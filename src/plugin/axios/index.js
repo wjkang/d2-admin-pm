@@ -2,16 +2,19 @@ import store from '@/store'
 import axios from 'axios'
 import { Message } from 'element-ui'
 import util from '@/libs/util'
+import loading from '@/libs/loading'
+import message from '@/libs/message'
+import permission from '@/libs/permission'
 
 // 创建一个错误
-function errorCreat (msg) {
+function errorCreat(msg) {
   const err = new Error(msg)
   errorLog(err)
   throw err
 }
 
 // 记录和显示错误
-function errorLog (err) {
+function errorLog(err) {
   // 添加到日志
   store.dispatch('d2admin/log/add', {
     type: 'error',
@@ -34,18 +37,21 @@ function errorLog (err) {
 // 创建一个 axios 实例
 const service = axios.create({
   baseURL: process.env.VUE_APP_API,
-  timeout: 5000 // 请求超时时间
+  timeout: 20000 // 请求超时时间
 })
 
 // 请求拦截器
 service.interceptors.request.use(
   config => {
+    if (!permission.check(config)) {
+      throw "403"
+    }
     // 在请求发送之前做一些处理
     if (!(/^https:\/\/|http:\/\//.test(config.url))) {
       const token = util.cookies.get('token')
       if (token && token !== 'undefined') {
-        // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
-        config.headers['X-Token'] = token
+        // 让每个请求携带token-- ['Authorization']为自定义key 请根据实际情况自行修改
+        config.headers['Authorization'] = 'Bearer ' + token
       }
     }
     return config
