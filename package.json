@@ -16,7 +16,7 @@
     "babel-polyfill": "^6.26.0",
     "better-scroll": "^1.12.1",
     "dayjs": "^1.6.7",
-    "element-ui": "^2.4.4",
+    "element-ui": "^2.4.11",
     "flex.css": "^1.1.7",
     "fuse.js": "^3.2.1",
     "hotkeys-js": "^3.3.6",
