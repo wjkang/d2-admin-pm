@@ -64,9 +64,14 @@ service.interceptors.response.use(
     loading.hide(response.config)
     const res = response.data;
     if (res.statusCode !== 200) {
-      errorLog(new Error(`${res.msg}: ${response.config.url}`))
+      Message({
+        message: res.msg,
+        type: 'error',
+        duration: 3 * 1000
+      })
       return Promise.reject(res.msg);
     } else {
+      message(response.config)
       return res.data;
     }
   },

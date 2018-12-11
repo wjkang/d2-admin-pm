@@ -94,18 +94,19 @@ export const permissionRouter = [
         },
         children: [
             {
-                name: "菜单管理",
+                name: "menuPage",
                 path: "/system/menu",
                 icon: "folder-o",
                 meta: {
                     requiresAuth: true,
+                    cache:true,
                     title: '菜单管理'
                 },
                 component: "menu",
                 componentPath:'pages/sys/menu/index',
             },
             {
-                name: "路由管理",
+                name: "routePage",
                 path: "/system/route",
                 icon: "folder-o",
                 meta: {

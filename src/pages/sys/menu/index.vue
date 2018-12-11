@@ -1,30 +1,37 @@
 <template>
   <d2-container>
-    <template slot="header">
-      <el-button-group>
-        <el-button
-          type="primary"
-          icon="plus"
-          @click="add"
-        >添加</el-button>
-        <el-button
-          type="primary"
-          icon="edit"
-          :disabled="!currentId"
-          @click="edit"
-        >编辑</el-button>
-        <el-button
-          type="primary"
-          icon="delete"
-        >删除</el-button>
-      </el-button-group>
-    </template>
+    <el-button-group>
+      <el-button
+        type="primary"
+        icon="el-icon-circle-plus-outline"
+        @click="add"
+      >添加</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-edit"
+        :disabled="!currentId"
+        @click="edit"
+      >编辑</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-delete"
+        :disabled="!currentId"
+        @click="del"
+      >删除</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-circle-close-outline"
+        :disabled="!currentId"
+        @click="cancel"
+      >取消</el-button>
+    </el-button-group>
     <el-row>
       <el-col
         :span="8"
         style='margin-top:15px;'
       >
         <el-tree
+          ref="tree"
           class="filter-tree"
           node-key="id"
           highlight-current
@@ -124,12 +131,21 @@
                 > </el-option>
               </el-select>
             </el-form-item>
+            <el-form-item
+              label="锁定"
+              prop="isLock"
+            >
+              <el-switch
+                v-model="menuform.isLock"
+                :disabled="!formEdit"
+              ></el-switch>
+            </el-form-item>
             <el-form-item v-if="formEdit">
               <el-button
                 type="primary"
                 @click="submit"
               >提交</el-button>
-              <el-button @click="cancel">取消</el-button>
+              <el-button @click="reset">清空</el-button>
             </el-form-item>
           </el-form>
         </el-card>
@@ -139,31 +155,14 @@
 </template>
 
 <script>
+import * as menuService from "@/api/sys/menu";
 export default {
-  name: "menuManage",
+  name: "menuPage",
   data() {
     return {
       formEdit: false,
-      action: "",
-      currentId: "",
-      menuList: [
-        {
-          id: "1",
-          title: "一级 1",
-          children: [
-            {
-              id: "2",
-              title: "二级 1-1",
-              children: [
-                {
-                  id: "3",
-                  title: "三级 1-1-1"
-                }
-              ]
-            }
-          ]
-        }
-      ],
+      currentId: 0,
+      menuList: [],
       defaultProps: {
         label: "title"
       },
@@ -175,7 +174,8 @@ export default {
         icon: "",
         permission: "",
         sort: 0,
-        type: 1
+        type: 1,
+        isLock: false
       },
       typeOptions: [
         {
@@ -190,28 +190,78 @@ export default {
     };
   },
   methods: {
+    getMenuList() {
+      menuService.getMenuList().then(data => {
+        this.menuList = data;
+      });
+    },
     getMenuData(data) {
       let id = data.id;
-      this.currentId = id;
+      menuService.getMenu(id).then(data => {
+        this.menuform = {
+          id: data.id,
+          parentId: data.parentId,
+          title: data.title,
+          path: data.path,
+          icon: data.icon,
+          permission: data.permission,
+          sort: data.sort,
+          type: data.type,
+          isLock: data.isLock
+        };
+        this.currentId = id;
+      });
     },
     add() {
+      this.menuform = {
+        id: 0,
+        parentId: this.currentId
+      };
       this.formEdit = true;
     },
     edit() {
       this.formEdit = true;
     },
-    submit() {},
+    del() {
+      this.$confirm("确认删除？", "确认信息", {
+        distinguishCancelAndClose: true,
+        confirmButtonText: "删除",
+        cancelButtonText: "取消"
+      }).then(() => {
+        menuService.delMenu(this.currentId).then(() => {
+          this.currentId = 0;
+          this.getMenuList();
+        });
+      });
+    },
     cancel() {
+      this.formEdit = false;
+      this.currentId = 0;
+      this.menuform = {};
+    },
+    submit() {
+      menuService.saveMenu(this.menuform).then(() => {
+        menuService.getMenuList().then(data => {
+          this.menuList = data;
+        });
+      });
+    },
+    reset() {
       this.menuform = {
-        parentId: 0,
+        id: this.currentId,
+        parentId: this.menuform.parentId,
         title: "",
         path: "",
         icon: "",
         permission: "",
         sort: 0,
-        type: 1
+        type: 1,
+        isLock: false
       };
     }
+  },
+  created() {
+    this.getMenuList();
   }
 };
 </script>

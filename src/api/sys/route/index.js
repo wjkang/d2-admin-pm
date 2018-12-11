@@ -1,8 +1,8 @@
 import request from '@/plugin/axios'
 
-export function getMenuList() {
+export function getRouteList() {
     return request({
-        url: '/menu',
+        url: '/route',
         method: 'get',
         loading: {
             type: 'nprogress',
@@ -10,9 +10,9 @@ export function getMenuList() {
         }
     })
 }
-export function getMenu(id) {
+export function getRoute(id) {
     return request({
-        url: '/menu/' + id,
+        url: '/route/' + id,
         method: 'get',
         loading: {
             type: 'nprogress',
@@ -20,9 +20,9 @@ export function getMenu(id) {
         }
     })
 }
-export function saveMenu(data) {
+export function saveRoute(data) {
     return request({
-        url: '/menu/save',
+        url: '/route/save',
         method: 'post',
         data,
         loading: {
@@ -38,9 +38,9 @@ export function saveMenu(data) {
         }
     })
 }
-export function delMenu(id) {
+export function delRoute(id) {
     return request({
-        url: '/menu/' + id,
+        url: '/route/' + id,
         method: 'delete',
         success: {
             type: 'message',
