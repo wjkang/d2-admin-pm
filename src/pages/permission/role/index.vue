@@ -1,13 +1,232 @@
 <template>
   <d2-container>
-    <template slot="header">角色管理</template>
-    Hello World
-    <template slot="footer">footer</template>
+    <template slot="header">
+      <el-form
+        :inline="true"
+        :model="searchForm"
+        ref="searchForm"
+        size="mini"
+        style="margin-bottom: -18px;"
+      >
+        <el-form-item
+          label="名称"
+          prop="name"
+        >
+          <el-input
+            v-model="searchForm.name"
+            placeholder="名称"
+            style="width: 100px;"
+          />
+        </el-form-item>
+
+        <el-form-item
+          label="标识"
+          prop="code"
+        >
+          <el-input
+            v-model="searchForm.code"
+            placeholder="标识"
+            style="width: 120px;"
+          />
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            type="primary"
+            @click="handleSearchFormSubmit"
+          >
+            <d2-icon name="search" />
+            查询
+          </el-button>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button @click="handleSearchFormReset">
+            <d2-icon name="refresh" />
+            重置
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </template>
+    <el-table
+      :data="tableData"
+      v-loading="loading"
+      size="small"
+      stripe
+      highlight-current-row
+      style="width: 100%;"
+      @selection-change="handleSelectionChange"
+      @sort-change="handleSortChange"
+    >
+
+      <el-table-column
+        type="selection"
+        width="55"
+      >
+      </el-table-column>
+      <el-table-column
+        label="名称"
+        prop="name"
+        sortable="custom"
+      >
+        <template slot-scope="scope">
+          {{scope.row.name}}
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="标识"
+        prop="code"
+        sortable="custom"
+        :show-overflow-tooltip="true"
+      >
+        <template slot-scope="scope">
+          {{scope.row.code}}
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="描述"
+        :show-overflow-tooltip="true"
+      >
+        <template slot-scope="scope">
+          {{scope.row.description}}
+        </template>
+      </el-table-column>
+      <el-table-column
+        fixed="right"
+        label="操作"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <el-button
+            type="primary"
+            title="编辑"
+            size="mini"
+            icon="el-icon-edit"
+            circle
+            @click="openEditForm(scope.row.id)"
+          ></el-button>
+          <el-button
+            type="danger"
+            title="删除"
+            size="mini"
+            icon="el-icon-delete"
+            circle
+          ></el-button>
+          <el-button
+            type="warning"
+            title="用户列表"
+            size="mini"
+            icon="el-icon-share"
+            circle
+          ></el-button>
+          <el-button
+            title="权限"
+            size="mini"
+            icon="el-icon-setting"
+            circle
+          ></el-button>
+        </template>
+      </el-table-column>
+
+    </el-table>
+    <template slot="footer">
+      <el-pagination
+        :current-page="page.current"
+        :page-size="page.size"
+        :total="page.total"
+        :page-sizes="[1,100, 200, 300, 400]"
+        layout="total, sizes, prev, pager, next, jumper"
+        style="margin: -10px;"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      >
+      </el-pagination>
+    </template>
+    <edit-form
+      :roleId="roleId"
+      v-model="editFormVisible"
+      @submit="getTableData"
+    />
   </d2-container>
 </template>
-
 <script>
+import * as roleService from "@/api/sys/role";
+import editForm from "./editForm";
 export default {
-  name: 'roleManage'
-}
+  name: "rolePage",
+  components: { editForm },
+  data() {
+    return {
+      searchForm: {
+        name: "",
+        code: ""
+      },
+      loading: false,
+      tableData: [
+        {
+          name: "admin",
+          code: "Admin",
+          description: "系统管理员"
+        }
+      ],
+      multipleSelection: [],
+      page: {
+        current: 1,
+        size: 100,
+        total: 0
+      },
+      sort: {
+        prop: "",
+        order: ""
+      },
+      roleId: "",
+      editFormVisible: false
+    };
+  },
+  mounted() {
+    this.getTableData();
+  },
+  methods: {
+    getTableData() {
+      let query = {
+        pageIndex: this.page.current,
+        pageSize: this.page.size,
+        sortBy: this.sort.prop,
+        descending: this.sort.order === "descending",
+        filter: this.searchForm
+      };
+      roleService.getRolePagedList(query).then(data => {
+        this.tableData = data.rows;
+        this.page.total = data.totalCount;
+      });
+    },
+    handleSearchFormSubmit() {
+      this.getTableData();
+    },
+    handleSearchFormReset() {
+      this.$refs.searchForm.resetFields();
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
+    handleSortChange(val) {
+      this.sort.prop = val.prop;
+      this.sort.order = val.order;
+      this.getTableData();
+    },
+    handleSizeChange(val) {
+      this.page.size = val;
+      this.getTableData();
+    },
+    handleCurrentChange(val) {
+      this.page.current = val;
+      this.getTableData();
+    },
+    openEditForm(id) {
+      this.roleId = id;
+      this.editFormVisible = true;
+    }
+  }
+};
 </script>
