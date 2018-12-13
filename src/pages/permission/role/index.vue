@@ -125,6 +125,7 @@
             size="mini"
             icon="el-icon-setting"
             circle
+            @click="openPermissionDialog(scope.row.id)"
           ></el-button>
         </template>
       </el-table-column>
@@ -148,14 +149,19 @@
       v-model="editFormVisible"
       @submit="getTableData"
     />
+    <role-permission
+      :roleId="roleId"
+      v-model="permissionDialogVisible"
+    />
   </d2-container>
 </template>
 <script>
 import * as roleService from "@/api/sys/role";
 import editForm from "./editForm";
+import rolePermission from "./rolePermission";
 export default {
   name: "rolePage",
-  components: { editForm },
+  components: { editForm, rolePermission },
   data() {
     return {
       searchForm: {
@@ -181,7 +187,8 @@ export default {
         order: ""
       },
       roleId: "",
-      editFormVisible: false
+      editFormVisible: false,
+      permissionDialogVisible: false
     };
   },
   mounted() {
@@ -226,6 +233,10 @@ export default {
     openEditForm(id) {
       this.roleId = id;
       this.editFormVisible = true;
+    },
+    openPermissionDialog(id) {
+      this.roleId = id;
+      this.permissionDialogVisible = true;
     }
   }
 };

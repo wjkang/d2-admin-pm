@@ -2,61 +2,49 @@
   <el-dialog
     title="权限分配"
     :visible.sync="dialogVisible"
+    @open="dialogOpen"
   >
-    <el-form
-      ref="form"
-      label-width="5px"
-      size="small"
+    <el-row style="padding: 0 0 5px 5px;font-weight: bold;">
+      当前角色：
+    </el-row>
+    <el-input
+      size="mini"
+      placeholder="输入关键字进行过滤"
+      v-model="filterText"
+      style="padding-bottom: 5px;"
+    ></el-input>
+    <el-tree
+      ref="tree"
+      show-checkbox
+      :expand-on-click-node="false"
+      :props="{label: 'title'}"
+      highlight-current
+      node-key="id"
+      :data="permissionList"
+      :filter-node-method="filterNode"
     >
-      <el-row style="padding: 0 0 5px 5px;font-weight: bold;">
-        当前角色：
-      </el-row>
 
-      <el-form-item>
-        <el-input
-          size="mini"
-          placeholder="输入关键字进行过滤"
-          v-model="filterText"
-          style="padding-bottom: 5px;"
-        ></el-input>
-        <div style="height: 300px;">
-          <el-scrollbar class="aooms-scrollbar">
-            <el-tree
-              ref="tree"
-              show-checkbox
-              :expand-on-click-node="false"
-              :props="{label: 'title'}"
-              highlight-current
-              node-key="id"
-              :data="permissionList"
-              :filter-node-method="filterNode"
-            >
-
-              <span
-                class="aooms-tree-node"
-                slot-scope="{ node, data }"
-              >
-                <d2-icon
-                  :name="node.icon"
-                  style="width: 15px;text-align: center;"
-                />&nbsp;{{ node.label }}
-              </span>
-
-            </el-tree>
-          </el-scrollbar>
-        </div>
-      </el-form-item>
-
-      <el-form-item>
-        <el-button
-          type="primary"
-          :loading="loading"
-          @click="submit"
-        >保存</el-button>
-        <el-button @click="close">取消</el-button>
-      </el-form-item>
-    </el-form>
-
+      <span
+        class="aooms-tree-node"
+        slot-scope="{ node, data }"
+      >
+        <d2-icon
+          :name="node.icon"
+          style="width: 15px;text-align: center;"
+        />&nbsp;{{ node.label }}
+      </span>
+    </el-tree>
+    <div
+      slot="footer"
+      class="dialog-footer"
+    >
+      <el-button
+        type="primary"
+        :loading="loading"
+        @click="saveRolePermission"
+      >保存</el-button>
+      <el-button @click="close">取消</el-button>
+    </div>
   </el-dialog>
 
 </template>
@@ -83,13 +71,22 @@ export default {
     },
     dialogVisible(val) {
       this.$emit("input", val);
+    },
+    filterText(val) {
+      this.$refs.tree.filter(val);
     }
   },
   methods: {
     dialogOpen() {
-      roleService.getRole(this.roleId).then(data => {});
+      menuService.getMenuList().then(data => {
+        this.permissionList = data;
+      });
     },
-    saveRole() {},
+    filterNode(value, data) {
+      if (!value) return true;
+      return data.title.indexOf(value) !== -1;
+    },
+    saveRolePermission() {},
     close() {
       this.dialogVisible = false;
     }
