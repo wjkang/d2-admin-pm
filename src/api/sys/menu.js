@@ -5,8 +5,14 @@ export function getMenuList() {
         url: '/menu',
         method: 'get',
         loading: {
-            type: 'nprogress',
-            interval: 500
+            type: 'loading',
+            options: {
+                fullscreen: true,
+                lock: true,
+                text: '加载中...',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.8)'
+            }
         }
     })
 }
