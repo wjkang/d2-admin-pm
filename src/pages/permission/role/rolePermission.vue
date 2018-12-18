@@ -1,8 +1,6 @@
 <template>
-  <el-dialog title="权限分配" :visible.sync="dialogVisible" @open="dialogOpen">
-    <el-row style="padding: 0 0 5px 5px;font-weight: bold;">
-      当前角色：
-    </el-row>
+  <el-dialog :visible.sync="dialogVisible" @open="dialogOpen">
+    <div slot="title">维护<el-tag>{{role.name}}</el-tag>权限</div>
     <el-input size="mini" placeholder="输入关键字进行过滤" v-model="filterText" style="padding-bottom: 5px;"></el-input>
     <el-tree ref="tree" show-checkbox default-expand-all :props="{label: 'title'}" highlight-current node-key="id" :data="permissionList" :filter-node-method="filterNode">
       <span class="aooms-tree-node" slot-scope="{ node, data }">
@@ -22,7 +20,7 @@ import * as menuService from "@/api/sys/menu";
 export default {
   name: "rolePermission",
   props: {
-    roleId: String,
+    role: Object,
     value: Boolean
   },
   data() {
@@ -46,9 +44,8 @@ export default {
   },
   methods: {
     async dialogOpen() {
-      console.log(this.roleId);
       this.permissionList = await menuService.getMenuList();
-      let rolePermissions = await roleService.getRolePermissions(this.roleId);
+      let rolePermissions = await roleService.getRolePermissions(this.role.id);
       let rolePermissionList = rolePermissions.map(s => s.functionId);
       this.$refs.tree.setCheckedKeys(rolePermissionList);
     },
@@ -63,7 +60,7 @@ export default {
         checked.type == 2 && checkedPermissins.push(checked.id);
       }
       let data = {
-        roleId: this.roleId,
+        roleId: this.role.id,
         permissions: checkedPermissins
       };
       this.loading = true;
