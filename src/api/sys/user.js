@@ -10,7 +10,6 @@ export function editRoleUser(data) {
     return request({
         url: '/user/editroleuser',
         method: 'post',
-        data: data,
-        loading: "message"
+        data: data
     })
 }
