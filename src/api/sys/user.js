@@ -37,3 +37,31 @@ export function saveUser(data) {
         }
     })
 }
+export function delUser(id) {
+    return request({
+        url: '/user/del',
+        method: 'delete',
+        params: id,
+        success: {
+            type: 'message',
+            options: {
+                message: '删除成功',
+                type: 'success'
+            }
+        }
+    })
+}
+export function delUsers(ids) {
+    return request({
+        url: '/user/batchdel',
+        method: 'delete',
+        params: ids,
+        success: {
+            type: 'message',
+            options: {
+                message: '删除成功',
+                type: 'success'
+            }
+        }
+    })
+}

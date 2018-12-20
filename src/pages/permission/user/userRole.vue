@@ -185,7 +185,7 @@ export default {
     }
   },
   methods: {
-    async dialogOpen() {
+    dialogOpen() {
       this.getTableData();
     },
     getTableData() {

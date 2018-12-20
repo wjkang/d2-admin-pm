@@ -24,14 +24,28 @@ export function delRole(id) {
     return request({
         url: '/role/del',
         method: 'delete',
-        params: id
+        params: { id: id },
+        success: {
+            type: 'message',
+            options: {
+                message: '删除成功',
+                type: 'success'
+            }
+        }
     })
 }
 export function delRoles(ids) {
     return request({
         url: '/role/batchdel',
         method: 'delete',
-        params: ids
+        params: ids,
+        success: {
+            type: 'message',
+            options: {
+                message: '删除成功',
+                type: 'success'
+            }
+        }
     })
 }
 export function saveRole(data) {
