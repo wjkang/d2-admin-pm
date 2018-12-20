@@ -45,6 +45,23 @@
         </el-form-item>
       </el-form>
     </template>
+    <el-button
+      type="primary"
+      size="mini"
+      icon="el-icon-circle-plus"
+      @click="add"
+    >
+      新增
+    </el-button>
+    <el-button
+      v-if="multipleSelection.length>0"
+      type="danger"
+      size="mini"
+      icon="el-icon-delete"
+      @click="batchDel"
+    >
+      删除
+    </el-button>
     <el-table
       :data="tableData"
       v-loading="loading"
@@ -229,10 +246,15 @@ export default {
       this.user = user;
       this.editFormVisible = true;
     },
+    add() {
+      this.user = {};
+      this.editFormVisible = true;
+    },
     openUserRoleDialog(user) {
       this.user = user;
       this.userRoleDialogVisible = true;
-    }
+    },
+    batchDel() {}
   }
 };
 </script>

@@ -80,14 +80,18 @@ export default {
   methods: {
     dialogOpen() {
       this.$refs.form.resetFields();
-      userService.getUser(this.user.id).then(data => {
-        let form = {};
-        form.name = data.name;
-        form.trueName = data.trueName;
-        form.phone = data.phone;
-        form.email = data.email;
-        this.form = form;
-      });
+      if (this.user.id) {
+        userService.getUser(this.user.id).then(data => {
+          let form = {};
+          form.name = data.name;
+          form.trueName = data.trueName;
+          form.phone = data.phone;
+          form.email = data.email;
+          this.form = form;
+        });
+      } else {
+        this.form = {};
+      }
     },
     saveUser() {
       this.$refs["form"].validate(valid => {
