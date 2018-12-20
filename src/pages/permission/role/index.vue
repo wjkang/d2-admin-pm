@@ -58,7 +58,7 @@
       type="danger"
       size="mini"
       icon="el-icon-delete"
-      @click="add"
+      @click="batchDel"
     >
       删除
     </el-button>
@@ -253,6 +253,21 @@ export default {
         roleService.delRole(id).then(() => {
           this.getTableData();
         });
+      });
+    },
+    batchDel() {
+      this.$confirm("确认删除？", "确认信息", {
+        distinguishCancelAndClose: true,
+        confirmButtonText: "删除",
+        cancelButtonText: "取消"
+      }).then(() => {
+        roleService
+          .delRoles({
+            ids: JSON.stringify(this.multipleSelection.map(s => s.id))
+          })
+          .then(() => {
+            this.getTableData();
+          });
       });
     },
     openEditForm(role) {

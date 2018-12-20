@@ -73,9 +73,6 @@ export default {
       this.$emit("input", val);
     }
   },
-  mounted() {
-    console.log("mounted");
-  },
   methods: {
     dialogOpen() {
       this.$refs.form.resetFields();
