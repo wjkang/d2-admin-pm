@@ -27,6 +27,11 @@ export const permissionMenu = [
                         title: "用户管理",
                         path: "/system/user",
                         icon: "folder-o"
+                    },
+                    {
+                        title: "接口管理",
+                        path: "/system/interface",
+                        icon: "folder-o"
                     }
                 ]
             },

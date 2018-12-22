@@ -62,6 +62,22 @@
     >
       删除
     </el-button>
+    <el-popover
+      placement="top-start"
+      title="温馨提示"
+      width="200"
+      trigger="hover"
+    >
+      <li>121212</li>
+      <el-button
+        slot="reference"
+        size="mini"
+        icon="el-icon-info"
+        style="float:right"
+      >
+        操作提示
+      </el-button>
+    </el-popover>
     <el-table
       :data="tableData"
       v-loading="loading"
@@ -72,7 +88,6 @@
       @selection-change="handleSelectionChange"
       @sort-change="handleSortChange"
     >
-
       <el-table-column
         type="selection"
         width="55"

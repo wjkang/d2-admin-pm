@@ -4,17 +4,20 @@
       <el-button
         type="primary"
         icon="el-icon-circle-plus-outline"
+        size="mini"
         @click="add"
       >添加</el-button>
       <el-button
         type="primary"
         icon="el-icon-edit"
+        size="mini"
         :disabled="!currentId"
         @click="edit"
       >编辑</el-button>
       <el-button
         type="primary"
         icon="el-icon-delete"
+        size="mini"
         :disabled="!currentId"
         @click="del"
       >删除</el-button>
@@ -22,6 +25,7 @@
         type="primary"
         icon="el-icon-circle-close-outline"
         :disabled="!currentId"
+        size="mini"
         @click="cancel"
       >取消</el-button>
     </el-button-group>
@@ -35,6 +39,8 @@
           class="filter-tree"
           node-key="id"
           highlight-current
+          default-expand-all
+          :expand-on-click-node="false"
           :data="list"
           :props="defaultProps"
           @node-click="getRouteData"

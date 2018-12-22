@@ -4,27 +4,48 @@
       <el-button
         type="primary"
         icon="el-icon-circle-plus-outline"
+        size="mini"
         @click="add"
       >添加</el-button>
       <el-button
         type="primary"
         icon="el-icon-edit"
         :disabled="!currentId"
+        size="mini"
         @click="edit"
       >编辑</el-button>
       <el-button
         type="primary"
         icon="el-icon-delete"
         :disabled="!currentId"
+        size="mini"
         @click="del"
       >删除</el-button>
       <el-button
         type="primary"
         icon="el-icon-circle-close-outline"
         :disabled="!currentId"
+        size="mini"
         @click="cancel"
       >取消</el-button>
     </el-button-group>
+    <el-popover
+      placement="top-start"
+      title="温馨提示"
+      width="200"
+      trigger="hover"
+    >
+      <li>请不要在`功能`类型节点下建子节点</li>
+      <li>`菜单`类型节点的权限标识请设置为其某个`功能`类型子节点的权限标识</li>
+      <el-button
+        slot="reference"
+        size="mini"
+        icon="el-icon-info"
+        style="float:right"
+      >
+        操作提示
+      </el-button>
+    </el-popover>
     <el-row>
       <el-col
         :span="8"
@@ -34,7 +55,9 @@
           ref="tree"
           class="filter-tree"
           node-key="id"
+          default-expand-all
           highlight-current
+          :expand-on-click-node="false"
           :data="menuList"
           :props="defaultProps"
           @node-click="getMenuData"
