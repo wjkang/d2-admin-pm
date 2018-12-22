@@ -168,7 +168,7 @@
               ></el-switch>
             </el-form-item>
             <el-form-item
-              label="keepAlive"
+              label="keep-alive"
               prop="cache"
             >
               <el-switch
