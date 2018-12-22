@@ -32,7 +32,7 @@
     <el-popover
       placement="top-start"
       title="温馨提示"
-      width="200"
+      width="400"
       trigger="hover"
     >
       <li>请不要在`功能`类型节点下建子节点</li>

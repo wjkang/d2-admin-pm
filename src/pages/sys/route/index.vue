@@ -29,6 +29,26 @@
         @click="cancel"
       >取消</el-button>
     </el-button-group>
+    <el-popover
+      placement="top-start"
+      title="温馨提示"
+      width="400"
+      trigger="hover"
+    >
+      <li>要使`keep-alive`生效，`name`必须与前端组件`name`一致</li>
+      <li>`路径`请输入完整路径</li>
+      <li>`组件`为前端`routerMapComponents`中的key</li>
+      <li>`组件路径`为前端组件在项目中的完整路径</li>
+      <li>`组件`与`组件路径`二选一必填，取决于前端采取的方案</li>
+      <el-button
+        slot="reference"
+        size="mini"
+        icon="el-icon-info"
+        style="float:right"
+      >
+        操作提示
+      </el-button>
+    </el-popover>
     <el-row>
       <el-col
         :span="8"
