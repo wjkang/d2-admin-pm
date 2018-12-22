@@ -179,7 +179,7 @@ import * as userService from "@/api/sys/user";
 import userRole from "./userRole";
 import editForm from "./editForm";
 export default {
-  name: "userPage",
+  name: "UserPage",
   components: { editForm, userRole },
   data() {
     return {

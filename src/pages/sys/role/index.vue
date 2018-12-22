@@ -182,7 +182,7 @@ import editForm from "./editForm";
 import rolePermission from "./rolePermission";
 import roleUser from "./roleUser";
 export default {
-  name: "rolePage",
+  name: "RolePage",
   components: { editForm, rolePermission, roleUser },
   data() {
     return {

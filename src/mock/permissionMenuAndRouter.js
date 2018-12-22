@@ -61,7 +61,7 @@ export const permissionRouter = [
         },
         children: [
             {
-                name: "menuPage",
+                name: "MenuPage",
                 path: "/system/menu",
                 meta: {
                     cache: true,
@@ -71,7 +71,7 @@ export const permissionRouter = [
                 componentPath: 'pages/sys/menu/index',
             },
             {
-                name: "routePage",
+                name: "RoutePage",
                 path: "/system/route",
                 meta: {
                     cache: true,
@@ -81,7 +81,7 @@ export const permissionRouter = [
                 componentPath: 'pages/sys/route/index',
             },
             {
-                name: "rolePage",
+                name: "RolePage",
                 path: "/system/role",
                 meta: {
                     cache: true,
@@ -91,7 +91,7 @@ export const permissionRouter = [
                 componentPath: 'pages/sys/role/index',
             },
             {
-                name: "userPage",
+                name: "UserPage",
                 path: "/system/user",
                 meta: {
                     cache: true,

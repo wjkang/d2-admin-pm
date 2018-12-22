@@ -157,7 +157,7 @@
 <script>
 import * as menuService from "@/api/sys/menu";
 export default {
-  name: "menuPage",
+  name: "MenuPage",
   data() {
     return {
       formEdit: false,

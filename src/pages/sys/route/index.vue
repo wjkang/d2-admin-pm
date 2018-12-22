@@ -167,7 +167,7 @@
 <script>
 import * as routeService from "@/api/sys/route";
 export default {
-  name: "routePage",
+  name: "RoutePage",
   data() {
     return {
       formEdit: false,
