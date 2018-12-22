@@ -41,7 +41,7 @@ export function delUser(id) {
     return request({
         url: '/user/del',
         method: 'delete',
-        params: id,
+        params: { id: id },
         success: {
             type: 'message',
             options: {

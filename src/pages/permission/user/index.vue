@@ -136,6 +136,7 @@
             size="mini"
             icon="el-icon-delete"
             circle
+            @click="del(scope.row.id)"
           ></el-button>
           <el-button
             type="warning"
@@ -254,7 +255,32 @@ export default {
       this.user = user;
       this.userRoleDialogVisible = true;
     },
-    batchDel() {}
+    batchDel() {
+      this.$confirm("确认删除？", "确认信息", {
+        distinguishCancelAndClose: true,
+        confirmButtonText: "删除",
+        cancelButtonText: "取消"
+      }).then(() => {
+        userService
+          .delUsers({
+            ids: JSON.stringify(this.multipleSelection.map(s => s.id))
+          })
+          .then(() => {
+            this.getTableData();
+          });
+      });
+    },
+    del(id) {
+      this.$confirm("确认删除？", "确认信息", {
+        distinguishCancelAndClose: true,
+        confirmButtonText: "删除",
+        cancelButtonText: "取消"
+      }).then(() => {
+        userService.delUser(id).then(() => {
+          this.getTableData();
+        });
+      });
+    }
   }
 };
 </script>
