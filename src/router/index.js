@@ -32,6 +32,12 @@ const router = new VueRouter({
 
 let permissionMenu, permissionRouter = []
 
+let permission = {
+  functions: [],
+  roles: [],
+  isAdmin: false
+}
+
 //标记是否已经拉取权限信息
 let isFetchPermissionInfo = false
 
@@ -69,6 +75,9 @@ let fetchPermissionInfo = async () => {
     let userPermissionInfo = await userService.getUserPermissionInfo()
     permissionMenu = userPermissionInfo.accessMenus
     permissionRouter = userPermissionInfo.accessRoutes
+    permission.functions = userPermissionInfo.userPermissions
+    permission.roles = userPermissionInfo.userRoles
+    permission.isAdmin = userPermissionInfo.isAdmin == 1
   } catch (ex) {
 
   }
@@ -85,6 +94,8 @@ let fetchPermissionInfo = async () => {
   store.commit('d2admin/menu/fullAsideSet', allMenuAside)
   // 初始化菜单搜索功能
   store.commit('d2admin/search/init', allMenuHeader)
+  // 设置权限信息
+  store.commit('d2admin/permission/set', permission)
   await Promise.resolve()
 }
 //免校验token白名单
