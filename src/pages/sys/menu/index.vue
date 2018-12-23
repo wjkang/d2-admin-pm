@@ -5,7 +5,7 @@
       <el-button type="primary" icon="el-icon-edit" :disabled="!currentId" size="mini" @click="edit">编辑</el-button>
       <el-button type="primary" icon="el-icon-delete" :disabled="!currentId" size="mini" @click="del">删除</el-button>
       <el-button type="primary" icon="el-icon-circle-close-outline" :disabled="!currentId" size="mini" @click="cancel">取消</el-button>
-      <el-button type="primary" icon="el-icon-edit" size="mini" @click="batchEdit">批量编辑</el-button>
+      <el-button v-permission="['xxxx']" type="primary" icon="el-icon-edit" size="mini" @click="batchEdit">批量编辑</el-button>
     </el-button-group>
     <el-popover placement="top-start" title="温馨提示" width="400" trigger="hover">
       <li>请不要在`功能`类型节点下建子节点</li>

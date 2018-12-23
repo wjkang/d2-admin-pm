@@ -14,7 +14,7 @@ import d2Admin from '@/plugin/d2admin'
 // 路由
 import router from './router'
 // 核心插件
-Vue.use(d2Admin)
+Vue.use(d2Admin, { store })
 
 new Vue({
   router,

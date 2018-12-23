@@ -7,7 +7,7 @@ export default {
             let hasPermission = permissions.some(s => {
                 return needPermissions.indexOf(s) > -1;
             })
-            if (!hasPermission && isAdmin) {
+            if (!hasPermission && !isAdmin) {
                 return false
             }
         }
