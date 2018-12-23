@@ -1,10 +1,11 @@
 <template>
   <el-dialog :visible.sync="dialogVisible" @open="dialogOpen">
-    <div slot="title">维护<el-tag>{{role.name}}</el-tag>权限</div>
+    <div slot="title">维护
+      <el-tag>{{role.name}}</el-tag>权限</div>
     <el-input size="mini" placeholder="输入关键字进行过滤" v-model="filterText" style="padding-bottom: 5px;"></el-input>
-    <el-tree ref="tree" show-checkbox default-expand-all :props="{label: 'title'}" highlight-current node-key="id" :data="permissionList" :filter-node-method="filterNode">
-      <span class="aooms-tree-node" slot-scope="{ node, data }">
-        <d2-icon :name="node.icon" style="width: 15px;text-align: center;" />&nbsp;{{ node.label }}
+    <el-tree ref="tree" show-checkbox check-on-click-node default-expand-all :props="{label: 'title'}" highlight-current node-key="id" :data="permissionList" :filter-node-method="filterNode" :expand-on-click-node="false">
+      <span slot-scope="{ node, data }">
+        <i v-if="data.type==2" class="fa fa-cog"></i>&nbsp;{{ node.label }}
       </span>
     </el-tree>
     <div slot="footer" class="dialog-footer">
