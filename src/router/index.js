@@ -19,7 +19,9 @@ import { frameInRoutes } from '@/router/routes'
 //路由与组件映射关系
 import routerMapComponents from '@/routerMapComponents'
 //模拟动态菜单与路由
-import { permissionMenu, permissionRouter } from '@/mock/permissionMenuAndRouter'
+//import { permissionMenu, permissionRouter } from '@/mock/permissionMenuAndRouter'
+
+import * as userService from "@/api/sys/user";
 
 Vue.use(VueRouter)
 
@@ -28,12 +30,10 @@ const router = new VueRouter({
   routes
 })
 
+let permissionMenu, permissionRouter = []
+
 //标记是否已经拉取权限信息
 let isFetchPermissionInfo = false
-
-let allMenuAside = menuAside
-
-let allMenuHeader = menuHeader
 
 let fetchPermissionInfo = async () => {
   //处理动态添加的路由
@@ -65,10 +65,16 @@ let fetchPermissionInfo = async () => {
   //     }
   //   })
   // }
+  try {
+    let userPermissionInfo = await userService.getUserPermissionInfo()
+    permissionMenu = userPermissionInfo.accessMenus
+    permissionRouter = userPermissionInfo.accessRoutes
+  } catch (ex) {
 
+  }
   formatRoutes(permissionRouter)
-  allMenuAside = [...allMenuAside, ...permissionMenu]
-  allMenuHeader = [...allMenuHeader, ...permissionMenu]
+  let allMenuAside = [...menuAside, ...permissionMenu]
+  let allMenuHeader = [...menuHeader, ...permissionMenu]
   //动态添加路由
   router.addRoutes(permissionRouter);
   // 处理路由 得到每一级的路由设置

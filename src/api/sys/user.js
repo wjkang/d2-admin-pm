@@ -9,6 +9,12 @@ export function getUser(id) {
         }
     })
 }
+export function getUserPermissionInfo() {
+    return request({
+        url: '/user/info',
+        method: 'get'
+    })
+}
 export function getUserPagedList(query) {
     return request({
         url: '/user/pagedlist',
