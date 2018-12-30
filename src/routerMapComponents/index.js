@@ -4,5 +4,6 @@ export default {
     "menu": () => import(/* webpackChunkName: "menu" */'@/pages/sys/menu'),
     "route": () => import(/* webpackChunkName: "route" */'@/pages/sys/route'),
     "role": () => import(/* webpackChunkName: "role" */'@/pages/sys/role'),
-    "user": () => import(/* webpackChunkName: "user" */'@/pages/sys/user')
+    "user": () => import(/* webpackChunkName: "user" */'@/pages/sys/user'),
+    "interface": () => import(/* webpackChunkName: "interface" */'@/pages/sys/interface')
 }
