@@ -1,39 +1,16 @@
 <template>
   <d2-container>
     <template slot="header">
-      <el-form
-        :inline="true"
-        :model="searchForm"
-        ref="searchForm"
-        size="mini"
-        style="margin-bottom: -18px;"
-      >
-        <el-form-item
-          label="名称"
-          prop="name"
-        >
-          <el-input
-            v-model="searchForm.name"
-            placeholder="名称"
-            style="width: 100px;"
-          />
+      <el-form :inline="true" :model="searchForm" ref="searchForm" size="mini" style="margin-bottom: -18px;">
+        <el-form-item label="名称" prop="name">
+          <el-input v-model="searchForm.name" placeholder="名称" style="width: 100px;" />
         </el-form-item>
 
-        <el-form-item
-          label="标识"
-          prop="code"
-        >
-          <el-input
-            v-model="searchForm.code"
-            placeholder="标识"
-            style="width: 120px;"
-          />
+        <el-form-item label="标识" prop="code">
+          <el-input v-model="searchForm.code" placeholder="标识" style="width: 120px;" />
         </el-form-item>
         <el-form-item>
-          <el-button
-            type="primary"
-            @click="handleSearchFormSubmit"
-          >
+          <el-button type="primary" @click="handleSearchFormSubmit">
             <d2-icon name="search" /> 查询
           </el-button>
         </el-form-item>
@@ -45,150 +22,55 @@
         </el-form-item>
       </el-form>
     </template>
-    <el-button
-      type="primary"
-      size="mini"
-      icon="el-icon-circle-plus"
-      @click="add"
-    >
+    <el-button type="primary" size="mini" icon="el-icon-circle-plus" @click="add">
       新增
     </el-button>
-    <el-button
-      v-if="multipleSelection.length>0"
-      type="danger"
-      size="mini"
-      icon="el-icon-delete"
-      @click="batchDel"
-    >
+    <el-button v-if="multipleSelection.length>0" type="danger" size="mini" icon="el-icon-delete" @click="batchDel">
       删除
     </el-button>
-    <el-popover
-      placement="top-start"
-      title="温馨提示"
-      width="200"
-      trigger="hover"
-    >
+    <el-popover placement="top-start" title="温馨提示" width="200" trigger="hover">
       <li>121212</li>
-      <el-button
-        slot="reference"
-        size="mini"
-        icon="el-icon-info"
-        style="float:right"
-      >
+      <el-button slot="reference" size="mini" icon="el-icon-info" style="float:right">
         操作提示
       </el-button>
     </el-popover>
-    <el-table
-      :data="tableData"
-      v-loading="loading"
-      size="small"
-      stripe
-      highlight-current-row
-      style="width: 100%;"
-      @selection-change="handleSelectionChange"
-      @sort-change="handleSortChange"
-    >
-      <el-table-column
-        type="selection"
-        width="55"
-      >
+    <el-table :data="tableData" v-loading="loading" size="small" stripe highlight-current-row style="width: 100%;" @selection-change="handleSelectionChange" @sort-change="handleSortChange">
+      <el-table-column type="selection" width="55">
       </el-table-column>
-      <el-table-column
-        label="名称"
-        prop="name"
-        sortable="custom"
-      >
+      <el-table-column label="名称" prop="name" sortable="custom">
         <template slot-scope="scope">
           {{scope.row.name}}
         </template>
       </el-table-column>
 
-      <el-table-column
-        label="标识"
-        prop="code"
-        sortable="custom"
-        :show-overflow-tooltip="true"
-      >
+      <el-table-column label="标识" prop="code" sortable="custom" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{scope.row.code}}
         </template>
       </el-table-column>
 
-      <el-table-column
-        label="描述"
-        :show-overflow-tooltip="true"
-      >
+      <el-table-column label="描述" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{scope.row.description}}
         </template>
       </el-table-column>
-      <el-table-column
-        fixed="right"
-        label="操作"
-        align="center"
-      >
+      <el-table-column fixed="right" label="操作" align="center">
         <template slot-scope="scope">
-          <el-button
-            type="primary"
-            title="编辑"
-            size="mini"
-            icon="el-icon-edit"
-            circle
-            @click="openEditForm(scope.row)"
-          ></el-button>
-          <el-button
-            type="danger"
-            title="删除"
-            size="mini"
-            icon="el-icon-delete"
-            circle
-            @click="delRole(scope.row.id)"
-          ></el-button>
-          <el-button
-            type="warning"
-            title="用户列表"
-            size="mini"
-            icon="el-icon-share"
-            circle
-            @click="openRoleUserDialog(scope.row)"
-          ></el-button>
-          <el-button
-            title="权限"
-            size="mini"
-            icon="el-icon-setting"
-            circle
-            @click="openPermissionDialog(scope.row)"
-          ></el-button>
+          <el-button type="primary" title="编辑" size="mini" icon="el-icon-edit" circle @click="openEditForm(scope.row)"></el-button>
+          <el-button type="danger" title="删除" size="mini" icon="el-icon-delete" circle @click="delRole(scope.row.id)"></el-button>
+          <el-button type="warning" title="用户列表" size="mini" icon="el-icon-share" circle @click="openRoleUserDialog(scope.row)"></el-button>
+          <el-button title="权限" size="mini" icon="el-icon-setting" circle @click="openPermissionDialog(scope.row)"></el-button>
         </template>
       </el-table-column>
 
     </el-table>
     <template slot="footer">
-      <el-pagination
-        :current-page="page.current"
-        :page-size="page.size"
-        :total="page.total"
-        :page-sizes="[1,100, 200, 300, 400]"
-        layout="total, sizes, prev, pager, next, jumper"
-        style="margin: -10px;"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      >
+      <el-pagination :current-page="page.current" :page-size="page.size" :total="page.total" :page-sizes="[1,100, 200, 300, 400]" layout="total, sizes, prev, pager, next, jumper" style="margin: -10px;" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       </el-pagination>
     </template>
-    <edit-form
-      :role="role"
-      v-model="editFormVisible"
-      @submit="getTableData"
-    />
-    <role-permission
-      :role="role"
-      v-model="permissionDialogVisible"
-    />
-    <role-user
-      :role="role"
-      v-model="roleUserDialogVisible"
-    />
+    <edit-form :role="role" v-model="editFormVisible" @submit="getTableData" />
+    <role-permission :role="role" v-model="permissionDialogVisible" />
+    <role-user :role="role" v-model="roleUserDialogVisible" />
   </d2-container>
 </template>
 <script>
@@ -299,7 +181,7 @@ export default {
     },
     openRoleUserDialog(role) {
       this.role = role;
-      this.roleUserDialogVisible = true;
+      this.roleUserDialogVisible = !this.roleUserDialogVisible;
     }
   }
 };

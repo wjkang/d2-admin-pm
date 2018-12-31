@@ -52,21 +52,24 @@
             <el-form-item v-if="formEdit">
               <el-button type="primary" @click="submit">提交</el-button>
               <el-button @click="reset">清空</el-button>
+              <el-button v-if="menuform.id&&menuform.type==2" @click="openInterfaceDialog">关联接口</el-button>
             </el-form-item>
           </el-form>
         </el-card>
       </el-col>
     </el-row>
     <edit-form v-model="editFormDialogVisible" @submit="getMenuList" />
+    <relate-interface-form :menu="menuform" v-model="relateInterfaceDialogVisible" />
   </d2-container>
 </template>
 
 <script>
 import * as menuService from "@/api/sys/menu";
 import editForm from "./batchEditForm";
+import relateInterfaceForm from "./relateInterfaceForm";
 export default {
   name: "MenuPage",
-  components: { editForm },
+  components: { editForm, relateInterfaceForm },
   data() {
     return {
       formEdit: false,
@@ -96,7 +99,8 @@ export default {
           label: "功能"
         }
       ],
-      editFormDialogVisible: false
+      editFormDialogVisible: false,
+      relateInterfaceDialogVisible: false
     };
   },
   methods: {
@@ -171,6 +175,9 @@ export default {
     },
     batchEdit() {
       this.editFormDialogVisible = !this.editFormDialogVisible;
+    },
+    openInterfaceDialog() {
+      this.relateInterfaceDialogVisible = !this.relateInterfaceDialogVisible;
     }
   },
   created() {
