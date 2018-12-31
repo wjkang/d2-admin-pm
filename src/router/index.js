@@ -77,6 +77,7 @@ let fetchPermissionInfo = async () => {
     permissionRouter = userPermissionInfo.accessRoutes
     permission.functions = userPermissionInfo.userPermissions
     permission.roles = userPermissionInfo.userRoles
+    permission.interfaces = userPermissionInfo.accessInterfaces
     permission.isAdmin = userPermissionInfo.isAdmin == 1
   } catch (ex) {
 

@@ -20,6 +20,7 @@ export function getMenu(id) {
     return request({
         url: '/menu/' + id,
         method: 'get',
+        interfaceCheck: false,
         loading: {
             type: 'nprogress',
             interval: 500

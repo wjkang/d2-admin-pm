@@ -55,11 +55,6 @@
           {{scope.row.method}}
         </template>
       </el-table-column>
-      <el-table-column label="状态" :show-overflow-tooltip="true">
-        <template slot-scope="scope">
-          {{scope.row.isLocked}}
-        </template>
-      </el-table-column>
       <el-table-column label="描述" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           {{scope.row.description}}

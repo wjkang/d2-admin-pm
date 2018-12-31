@@ -5,6 +5,8 @@ export default {
         functions: [],
         //角色编码
         roles: [],
+        //接口
+        interfaces: [],
         //是否管理员
         isAdmin: false
     },
@@ -13,6 +15,7 @@ export default {
             state.functions = data.functions;
             state.roles = data.roles;
             state.isAdmin = data.isAdmin;
+            state.interfaces = data.interfaces;
         }
     }
 }

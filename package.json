@@ -25,6 +25,7 @@
     "jsonlint": "^1.6.3",
     "lodash": "^4.17.11",
     "lowdb": "^1.0.0",
+    "matchit": "^1.0.7",
     "mockjs": "^1.0.1-beta3",
     "nprogress": "^0.2.0",
     "particles.js": "^2.0.0",

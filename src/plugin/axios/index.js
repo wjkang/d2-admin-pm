@@ -37,8 +37,11 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
   config => {
-    if (!permission.access(config)) {
-      throw "403"
+    if (!permission.access(config, store)) {
+      throw {
+        type: '403',
+        config: config
+      }
     }
     loading.show(config)
     // 在请求发送之前做一些处理
@@ -76,6 +79,7 @@ service.interceptors.response.use(
     }
   },
   error => {
+    console.log(error.config)
     loading.hide(error.config)
     if (error.response && error.response.status === 401) {
       util.cookies.get('remove')
@@ -95,7 +99,7 @@ service.interceptors.response.use(
       errorLog(new Error(`系统错误!: ${error.config.url}`))
     } else if (error.message && error.message.indexOf("timeout") > -1) {
       errorLog(new Error(`网络超时!: ${error.config.url}`))
-    } else if (error === "403") {
+    } else if (error.type === "403") {
       errorLog(new Error(`没有请求权限!: ${error.config.url}`))
     } else {
       errorLog(new Error(`网络错误!: ${error.config.url}`))
