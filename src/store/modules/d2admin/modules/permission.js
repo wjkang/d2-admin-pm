@@ -6,7 +6,12 @@ export default {
         //角色编码
         roles: [],
         //接口
-        interfaces: [],
+        interfaces: {
+            GET: [],
+            POST: [],
+            PUT: [],
+            DELETE: []
+        },
         //是否管理员
         isAdmin: false
     },

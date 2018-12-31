@@ -4,6 +4,7 @@ export function getMenuList() {
     return request({
         url: '/menu',
         method: 'get',
+        interfaceCheck: true,
         loading: {
             type: 'loading',
             options: {
@@ -20,7 +21,7 @@ export function getMenu(id) {
     return request({
         url: '/menu/' + id,
         method: 'get',
-        interfaceCheck: false,
+        interfaceCheck: true,
         loading: {
             type: 'nprogress',
             interval: 500
@@ -31,6 +32,7 @@ export function saveMenu(data) {
     return request({
         url: '/menu/save',
         method: 'post',
+        interfaceCheck: true,
         data,
         loading: {
             type: 'nprogress',
@@ -48,6 +50,7 @@ export function saveMenu(data) {
 export function delMenu(id) {
     return request({
         url: '/menu/' + id,
+        interfaceCheck: true,
         method: 'delete',
         success: {
             type: 'message',

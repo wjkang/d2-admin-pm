@@ -77,10 +77,10 @@ let fetchPermissionInfo = async () => {
     permissionRouter = userPermissionInfo.accessRoutes
     permission.functions = userPermissionInfo.userPermissions
     permission.roles = userPermissionInfo.userRoles
-    permission.interfaces = userPermissionInfo.accessInterfaces
+    permission.interfaces = util.formatInterfaces(userPermissionInfo.accessInterfaces)
     permission.isAdmin = userPermissionInfo.isAdmin == 1
   } catch (ex) {
-
+    console.log(ex)
   }
   formatRoutes(permissionRouter)
   let allMenuAside = [...menuAside, ...permissionMenu]

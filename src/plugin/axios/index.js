@@ -79,7 +79,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log(error.config)
+    console.log(error)
     loading.hide(error.config)
     if (error.response && error.response.status === 401) {
       util.cookies.get('remove')
