@@ -54,8 +54,8 @@
             </el-table-column>
             <el-table-column fixed="right" label="操作" align="center">
                 <template slot-scope="scope">
-                    <el-button v-if="scope.row.isAdd==2" type="primary" title="添加" size="mini" icon="el-icon-plus" circle @click="modifyRoleUser(scope.row.id,1)"></el-button>
-                    <el-button v-if="scope.row.isAdd==1" type="danger" title="移除" size="mini" icon="el-icon-minus" circle @click="modifyRoleUser(scope.row.id,0)"></el-button>
+                    <el-button v-if="scope.row.isAdd==2" type="primary" title="添加" size="mini" icon="el-icon-plus" circle @click="relateInterface(scope.row.id,1)"></el-button>
+                    <el-button v-if="scope.row.isAdd==1" type="danger" title="移除" size="mini" icon="el-icon-minus" circle @click="relateInterface(scope.row.id,0)"></el-button>
                 </template>
             </el-table-column>
 
@@ -140,11 +140,11 @@ export default {
       this.page.current = val;
       this.getTableData();
     },
-    modifyRoleUser(userId, action) {
-      userService
-        .editRoleUser({
-          roleId: this.role.id,
-          userId: userId,
+    relateInterface(interfaceId, action) {
+      interfaceService
+        .relateInterface({
+          functionId: this.menu.id,
+          interfaceId: interfaceId,
           action: action
         })
         .then(() => {

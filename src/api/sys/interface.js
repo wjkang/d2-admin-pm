@@ -58,3 +58,10 @@ export function delInterfaces(ids) {
         }
     })
 }
+export function relateInterface(data) {
+    return request({
+        url: '/interface/relate',
+        method: 'post',
+        data: data
+    })
+}
