@@ -37,7 +37,7 @@
       </div>
       <!-- 快速登录按钮 -->
       <el-button size="default" type="info" class="button-help" @click="dialogVisible = true">
-        快速选择用户（测试功能）
+        快速选择用户（测试权限）
       </el-button>
     </div>
     <el-dialog title="快速选择用户" :visible.sync="dialogVisible" width="400px">
@@ -66,19 +66,19 @@ export default {
       dialogVisible: false,
       users: [
         {
-          name: "管理员",
+          name: "超级管理员",
           username: "admin",
           password: "123"
         },
         {
-          name: "编辑",
-          username: "editor",
-          password: "editor"
+          name: "菜单管理员",
+          username: "MenuManager",
+          password: "123456"
         },
         {
-          name: "用户1",
-          username: "user1",
-          password: "user1"
+          name: "无权限用户",
+          username: "no",
+          password: "123456"
         }
       ],
       // 表单

@@ -19,7 +19,7 @@ export default {
             let method = config.method.toUpperCase();
             let interfaces = store.state.d2admin.permission.interfaces[method]
             let matched = match(path, interfaces)
-            if (matched.length == 0) {
+            if (matched.length == 0 && !isAdmin) {
                 interfaceAccess = false
             }
         }
