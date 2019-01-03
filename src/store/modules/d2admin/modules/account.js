@@ -108,8 +108,6 @@ export default {
         await dispatch('d2admin/theme/load', null, { root: true })
         // DB -> store 加载页面过渡效果设置
         await dispatch('d2admin/transition/load', null, { root: true })
-        // DB -> store 持久化数据加载上次退出时的多页列表
-        await dispatch('d2admin/page/openedLoad', null, { root: true })
         // DB -> store 持久化数据加载侧边栏折叠状态
         await dispatch('d2admin/menu/asideCollapseLoad', null, { root: true })
         // DB -> store 持久化数据加载全局尺寸

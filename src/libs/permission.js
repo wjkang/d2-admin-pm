@@ -18,7 +18,7 @@ export default {
             let path = config.url.replace(config.baseURL, "");
             let method = config.method.toUpperCase();
             let interfaces = store.state.d2admin.permission.interfaces[method]
-            let matched = match(path, interfaces)
+            let matched = match(path.split("?")[0], interfaces)
             if (matched.length == 0 && !isAdmin) {
                 interfaceAccess = false
             }

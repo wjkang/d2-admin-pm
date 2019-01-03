@@ -97,6 +97,8 @@ let fetchPermissionInfo = async () => {
   store.commit('d2admin/search/init', allMenuHeader)
   // 设置权限信息
   store.commit('d2admin/permission/set', permission)
+  // 加载上次退出时的多页列表
+  store.dispatch('d2admin/page/openedLoad')
   await Promise.resolve()
 }
 //免校验token白名单
