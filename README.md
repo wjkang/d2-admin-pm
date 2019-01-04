@@ -42,4 +42,11 @@ await dispatch('d2admin/page/openedLoad', null, { root: true })
 ```
 转到`router/index.js`内,需要在加载完权限路由后才执行
 
+### 相关概念
+
+* 实现了RBAC模型权限控制
+* 菜单与路由独立管理，完全由后端返回
+
+
+
 <a href="https://github.com/d2-projects/d2-admin" target="_blank"><img src="https://raw.githubusercontent.com/FairyEver/d2-admin/master/doc/image/d2-admin@2x.png" width="200"></a>
