@@ -1,3 +1,4 @@
+### 对d2-admin-start-kit的修改
 `main.js`中`created`的内容转到`router/index.js`内，并添加相关逻辑
 
 修改了**axios**相关代码`plugin/axios/index.js`，支持接口级权限控制，并且支持配置loading效果
