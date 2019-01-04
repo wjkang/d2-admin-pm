@@ -7,27 +7,18 @@ export default {
                 if (isAdmin) {
                     return
                 }
-                let needPermissions = binding.value;
-                let permissions = store.state.d2admin.permission.functions.concat(store.state.d2admin.permission.roles);
-                let hasPermission = permissions.some(s => {
-                    return needPermissions.indexOf(s) > -1;
-                })
-                if (!hasPermission && !isAdmin) {
-                    el.parentNode.removeChild(el);
-                }
-
                 let checkCodes = [];
                 if (binding.arg === "function") {
-                    checkCodes = USER_PERMISSION;
+                    checkCodes = store.state.d2admin.permission.functions;
                 } else if (binding.arg === "role") {
-                    checkCodes = USER_ROLE;
+                    checkCodes = store.state.d2admin.permission.roles;
                 } else {
-                    checkCodes = USER_PERMISSION.join(USER_ROLE);
+                    checkCodes = store.state.d2admin.permission.functions.concat(store.state.d2admin.permission.roles);
                 }
                 let access = true;
                 if (binding.modifiers.all) {
                     for (let need of binding.value) {
-                        if (!checkCodes.some(s => s === need)) {
+                        if (checkCodes.some(s => s !== need)) {
                             access = false;
                             break;
                         }
@@ -41,7 +32,55 @@ export default {
                         }
                     }
                 }
+                if (!access) {
+                    el.parentNode.removeChild(el);
+                }
             }
         })
+        Vue.prototype.hasPermissions = (permissions) => {
+            let isAdmin = store.state.d2admin.permission.isAdmin;
+            if (isAdmin) {
+                return true
+            }
+            let has = false;
+            let checkCodes = store.state.d2admin.permission.functions.concat(store.state.d2admin.permission.roles);
+            for (let need of permissions) {
+                if (checkCodes.some(s => s === need)) {
+                    has = true;
+                    break;
+                }
+            }
+            return has
+        }
+        Vue.prototype.hasFunctions = (functions) => {
+            let isAdmin = store.state.d2admin.permission.isAdmin;
+            if (isAdmin) {
+                return true
+            }
+            let has = false;
+            let checkCodes = store.state.d2admin.permission.functions
+            for (let need of functions) {
+                if (checkCodes.some(s => s === need)) {
+                    has = true;
+                    break;
+                }
+            }
+            return has;
+        }
+        Vue.prototype.hasRoles = (roles) => {
+            let isAdmin = store.state.d2admin.permission.isAdmin;
+            if (isAdmin) {
+                return true
+            }
+            let has = false;
+            let checkCodes = store.state.d2admin.permission.roles
+            for (let need of roles) {
+                if (checkCodes.some(s => s === need)) {
+                    has = true;
+                    break;
+                }
+            }
+            return has;
+        }
     }
 }
