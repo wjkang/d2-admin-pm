@@ -2,6 +2,7 @@
   <d2-container>
     <el-button-group>
       <el-button
+        v-if="canAdd"
         type="primary"
         icon="el-icon-circle-plus-outline"
         size="mini"
@@ -29,7 +30,7 @@
         @click="cancel"
       >取消</el-button>
       <el-button
-        v-permission="['xxxx']"
+        v-permission="['p_menu_edit']"
         type="primary"
         icon="el-icon-edit"
         size="mini"
@@ -230,7 +231,7 @@ export default {
       ],
       editFormDialogVisible: false,
       relateInterfaceDialogVisible: false,
-      has: this.hasPermission()
+      canAdd: this.hasPermissions(["p_menu_edit"])
     };
   },
   methods: {
