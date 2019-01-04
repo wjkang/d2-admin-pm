@@ -41,3 +41,5 @@ vuex store中的`account`模块的`load`action的这部分:
 await dispatch('d2admin/page/openedLoad', null, { root: true })
 ```
 转到`router/index.js`内,需要在加载完权限路由后才执行
+
+<a href="https://github.com/d2-projects/d2-admin" target="_blank"><img src="https://raw.githubusercontent.com/FairyEver/d2-admin/master/doc/image/d2-admin@2x.png" width="200"></a>
