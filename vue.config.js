@@ -2,7 +2,7 @@
 const resolve = dir => require('path').join(__dirname, dir)
 
 // 基础路径 注意发布之前要先修改这里
-let baseUrl = '/'
+let baseUrl = process.env.NODE_ENV === 'production' ? '/d2-admin-pm/' : '/'
 
 module.exports = {
   baseUrl: baseUrl, // 根据你的实际情况更改这里
