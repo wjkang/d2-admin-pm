@@ -1,3 +1,21 @@
+### 运行使用
+
+```bash
+git clone https://github.com/wjkang/d2-admin-pm.git
+
+npm install
+
+npm start
+```
+需要后端mock服务的支持
+```bash
+git clone https://github.com/wjkang/d2-admin-server.git
+
+npm install
+
+npm start
+```
+
 ### 对d2-admin-start-kit的修改
 `main.js`中`created`的内容转到`router/index.js`内，并添加相关逻辑
 
