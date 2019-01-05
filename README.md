@@ -372,6 +372,12 @@ data() {
 
 数据mock使用[lazy-mock](https://github.com/wjkang/lazy-mock)修改而来的[d2-admin-server](https://github.com/wjkang/d2-admin-server)，数据真实来源于后端，相比其他工具，支持数据持久化，存储使用的是json文件，不需要安装数据库。简单的配置即可自动生成增删改查的接口。详细用法可看[lazy-mock文档](https://github.com/wjkang/lazy-mock)
 
+后端使用中间件控制访问权限，比如：
+```js
+ .get('/menu', PermissionCheck(), controllers.menu.getMenuList)
+```
+`PermissionCheck`默认使用接口进行校验，校验用户所能访问的API中是否匹配当前API，支持使用功能编码与角色编码进行校验`PermissionCheck(["p_menu_edit"],["r_menu_admin"],true)`,第一个参数为功能编码，第二个为角色编码，第三个为是否使用接口进行校验。
+
 前端代码生成还在开发中...
 
 ### 相关文章
