@@ -82,7 +82,7 @@ service.interceptors.response.use(
     console.log(error)
     loading.hide(error.config)
     if (error.response && error.response.status === 401) {
-      util.cookies.get('remove')
+      util.cookies.remove()
       if (error.config.url.indexOf("logout") === -1) {
         Message({
           message: '登陆信息已过期,请重新登陆!',
