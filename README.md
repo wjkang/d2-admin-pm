@@ -15,6 +15,11 @@ npm install
 
 npm start
 ```
+### 功能预览
+|  |  |  |
+| ------ | ------ | ------ |
+| ![](img/2019-01-05-22-12-35.png) | ![](img/2019-01-05-22-19-06.png) | ![](img/2019-01-05-22-19-41.png) |
+| ![](img/2019-01-05-22-21-35.png) | ![](img/2019-01-05-22-22-08.png) | ![](img/2019-01-05-22-22-35.png) |
 
 ### 对d2-admin-start-kit的修改
 `main.js`中`created`的内容转到`router/index.js`内，并添加相关逻辑
@@ -367,6 +372,18 @@ data() {
 
 数据mock使用[lazy-mock](https://github.com/wjkang/lazy-mock)修改而来的[d2-admin-server](https://github.com/wjkang/d2-admin-server)，数据真实来源于后端，相比其他工具，支持数据持久化，存储使用的是json文件，不需要安装数据库。简单的配置即可自动生成增删改查的接口。详细用法可看[lazy-mock文档](https://github.com/wjkang/lazy-mock)
 
+后端使用中间件控制访问权限，比如：
+```js
+ .get('/menu', PermissionCheck(), controllers.menu.getMenuList)
+```
+`PermissionCheck`默认使用接口进行校验，校验用户所能访问的API中是否匹配当前API，支持使用功能编码与角色编码进行校验`PermissionCheck(["p_menu_edit"],["r_menu_admin"],true)`,第一个参数为功能编码，第二个为角色编码，第三个为是否使用接口进行校验。
+
 前端代码生成还在开发中...
+
+### 相关文章
+[vue权限路由实现方式总结](https://juejin.im/post/5b5bfd5b6fb9a04fdd7d687a)
+[vue权限路由实现方式总结二](https://juejin.im/post/5c0b2130f265da615c5913d9)
+[企业管理系统前后端分离架构设计 系列一 权限模型篇](https://juejin.im/post/5b59c2956fb9a04faa79af6f)
+
 
 <a href="https://github.com/d2-projects/d2-admin" target="_blank"><img src="https://raw.githubusercontent.com/FairyEver/d2-admin/master/doc/image/d2-admin@2x.png" width="200"></a>
