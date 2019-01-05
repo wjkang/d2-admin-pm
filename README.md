@@ -374,4 +374,10 @@ data() {
 
 前端代码生成还在开发中...
 
+### 相关文章
+[vue权限路由实现方式总结](https://juejin.im/post/5b5bfd5b6fb9a04fdd7d687a)
+[vue权限路由实现方式总结二](https://juejin.im/post/5c0b2130f265da615c5913d9)
+[企业管理系统前后端分离架构设计 系列一 权限模型篇](https://juejin.im/post/5b59c2956fb9a04faa79af6f)
+
+
 <a href="https://github.com/d2-projects/d2-admin" target="_blank"><img src="https://raw.githubusercontent.com/FairyEver/d2-admin/master/doc/image/d2-admin@2x.png" width="200"></a>
