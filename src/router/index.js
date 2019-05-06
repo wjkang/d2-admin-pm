@@ -113,10 +113,10 @@ router.beforeEach(async (to, from, next) => {
   NProgress.start()
   // 关闭搜索面板
   store.commit('d2admin/search/set', false)
+  const token = util.cookies.get('token')
   if (whiteList.indexOf(to.path) === -1) {
     // 这里暂时将cookie里是否存有token作为验证是否登录的条件
     // 请根据自身业务需要修改
-    const token = util.cookies.get('token')
     if (token && token !== 'undefined') {
       //拉取权限信息
       if (!isFetchPermissionInfo) {
@@ -136,7 +136,17 @@ router.beforeEach(async (to, from, next) => {
       })
     }
   } else {
-    next()
+    if (to.name === 'login') {
+      // 如果已经登录，则直接进入系统
+      if (token && token !== undefined) {
+        next(from.path, true);
+        NProgress.done()
+      } else {
+        next()
+      }
+    } else {
+      next()
+    }
   }
 })
 
