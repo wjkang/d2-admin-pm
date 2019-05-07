@@ -20,7 +20,8 @@ import { frameInRoutes } from '@/router/routes'
 import routerMapComponents from '@/routerMapComponents'
 //模拟动态菜单与路由
 //import { permissionMenu, permissionRouter } from '@/mock/permissionMenuAndRouter'
-
+//代码生成器生成的菜单与路由
+import autoGenerateMenusAndRouters from '@/development'
 import * as userService from "@/api/sys/user";
 
 Vue.use(VueRouter)
@@ -82,6 +83,11 @@ let fetchPermissionInfo = async () => {
   } catch (ex) {
     console.log(ex)
   }
+
+  //组合代码生成器生成的菜单和路由
+  permissionMenu = [...permissionMenu, ...autoGenerateMenusAndRouters.menus]
+  permissionRouter = [...permissionRouter, ...autoGenerateMenusAndRouters.routers]
+
   formatRoutes(permissionRouter)
   let allMenuAside = [...menuAside, ...permissionMenu]
   let allMenuHeader = [...menuHeader, ...permissionMenu]
