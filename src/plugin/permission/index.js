@@ -2,7 +2,7 @@ export default {
     install(Vue, options) {
         let store = options.store
         Vue.directive('permission', {
-            bind: function (el, binding, vnode) {
+            inserted: function (el, binding, vnode) {
                 let isAdmin = store.state.d2admin.permission.isAdmin;
                 if (isAdmin) {
                     return
