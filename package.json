@@ -47,7 +47,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.0.1",
     "lint-staged": "^7.2.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^7.0.0",
     "sass-loader": "^7.0.1",
     "script-loader": "^0.7.2",
     "svg-sprite-loader": "^3.8.0",
